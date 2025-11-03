@@ -1,0 +1,11 @@
+{
+  "/api/applications/route": "app/api/applications/route.js",
+  "/api/search-jobs/route": "app/api/search-jobs/route.js",
+  "/(main)/dashboard/page": "app/(main)/dashboard/page.js",
+  "/(main)/applications/new/page": "app/(main)/applications/new/page.js",
+  "/(main)/applications/page": "app/(main)/applications/page.js",
+  "/(main)/revenue/page": "app/(main)/revenue/page.js",
+  "/(main)/content/page": "app/(main)/content/page.js",
+  "/(main)/reviews/page": "app/(main)/reviews/page.js",
+  "/(main)/network/page": "app/(main)/network/page.js"
+}

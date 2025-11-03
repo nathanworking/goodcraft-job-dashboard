@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Tab 1: Job Applications Tracker
+model Application {
+  id            String    @id @default(cuid())
+  dateApplied   DateTime  @default(now())
+  company       String
+  jobTitle      String
+  url           String?
+  resumeVersion String    // Webflow/Frontend/Full-Stack
+  status        String    @default("Applied") // Applied/Responded/Interview/Rejected/Offer
+  followUpDate  DateTime?
+  notes         String?
+  source        String?   // LinkedIn/Indeed/etc
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Tab 2: Revenue Tracking
+model RevenueWeek {
+  id                  String   @id @default(cuid())
+  weekOf              DateTime @unique
+  tylerWorkHours      Float    @default(0)
+  tylerRevenue        Float    @default(0)
+  clientWorkHours     Float    @default(0)
+  clientRevenue       Float    @default(0)
+  templateSalesCount  Int      @default(0)
+  templateSalesAmount Float    @default(0)
+  otherIncome         Float    @default(0)
+  weeklyTotal         Float    @default(0)
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+// Tab 3: Network/Outreach Tracker
+model NetworkContact {
+  id            String    @id @default(cuid())
+  contactName   String
+  company       String?
+  dateContacted DateTime  @default(now())
+  method        String    // Email/LinkedIn/Text
+  purpose       String    // Project lead/referral/advice
+  responded     Boolean   @default(false)
+  followUpDate  DateTime?
+  outcome       String?   // Deal/Nothing/Pending
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Tab 4: Content Calendar
+model ContentPost {
+  id                 String   @id @default(cuid())
+  weekOf             DateTime
+  scheduledDate      DateTime
+  dayOfWeek          String   // Monday/Wednesday/Friday
+  topic              String?
+  done               Boolean  @default(false)
+  engagementLikes    Int      @default(0)
+  engagementComments Int      @default(0)
+  engagementShares   Int      @default(0)
+  leadsGenerated     Int      @default(0)
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+// Tab 5: Weekly Review
+model WeeklyReview {
+  id              String   @id @default(cuid())
+  weekOf          DateTime @unique
+  jobApplications Int      @default(0)
+  deepWorkHours   Float    @default(0)
+  revenueThisWeek Float    @default(0)
+  contentPosted   Int      @default(0)
+  networkOutreach Int      @default(0)
+  meetingsNotes   String?
+  blockers        String?
+  wins            String?
+  actionItems     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
